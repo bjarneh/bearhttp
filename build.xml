@@ -165,7 +165,7 @@
     </target>
 
 
-    <!-- clean, then compile, then javadoc -->
+<!-- clean, then compile, then javadoc -->
 
     <target name="all"
         description="clean + build + jar + javadoc "
