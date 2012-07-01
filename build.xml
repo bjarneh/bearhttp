@@ -1,0 +1,175 @@
+<!--
+  Copyright © 2012 bjarneh
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+
+<project name="bjarnish" default="jar" basedir=".">
+
+
+<!-- initialize the project with default values and class.path -->
+
+    <target name="init">
+        <!-- read properties from mk/build.properties -->
+        <property file="mk/build.properties" />
+        <!-- make all jar files in the lib directory available -->
+        <path id="class.path" >
+            <fileset dir="${lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+    </target>
+
+
+<!-- compiles the project classes into $build.dest -->
+
+    <target name="build" description="compile project" depends="init">
+
+        <mkdir dir="${build.dest}" />
+
+        <javac
+            srcdir="${src.dir}"
+            destdir="${build.dest}"
+            source="${javac.source}"
+            compiler="${javac.compiler}"
+            deprecation="${javac.deprecation}"
+            includeantruntime="${javac.includeantruntime}">
+
+            <compilerarg line="${javac.args}" />
+            <exclude name="${javac.exclude1}" /> 
+            <exclude name="${javac.exclude2}" />
+            <classpath refid="class.path" />
+        </javac>
+
+    </target>
+
+
+<!-- make a manifest with entry point and info --> 
+
+    <target name="manifest" depends="init">
+        <manifest file="${jar.manifest}">
+            <attribute name="Main-Class" value="${jar.main}"/>
+            <section name="${name}">
+                <attribute name="Version" value="${version}"/> 
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Licence" value="${copyright.license}"/>
+                <attribute name="Year" value="${copyright.date}"/>
+            </section>
+        </manifest>
+    </target>
+
+
+
+<!-- this zips up the files into ${dist.dir}/${name}.jar  -->
+
+    <target name="jar"
+        description="zip classes into a jar file" depends="build,manifest">
+        <mkdir dir="${dist.dir}"/>
+        <jar 
+            jarfile="${jar.output}"
+            basedir="${build.dest}"
+            manifest="${jar.manifest}">
+            <fileset dir="${jar.includes}" />
+        </jar>
+    </target>
+
+
+<!-- create a shell script stub with the executable jar attached -->
+
+    <target name="script"
+        depends="jar"
+        description="make a bash script containing executable jar" >
+        <mkdir dir="${bin.dir}" /> 
+        <java classname="${jscript.class}">
+            <arg value="${jar.output}" />
+            <arg value="${bin.dir}/${name}" />
+            <classpath>
+                <pathelement location="${jar.output}" />
+            </classpath>
+        </java>
+        <echo>${dist.dir}/${name}.jar -> ${bin.dir}/${name} </echo>
+    </target>
+
+
+<!-- just override the property javac.exclude2 to include tests -->
+
+    <target name="includetests">
+        <property name="javac.exclude2" value="" />
+    </target>
+
+<!-- run all unit tests -->
+
+    <target name="test"
+        description="run all unit tests"
+        depends="includetests,jar" >
+
+        <path id="test.class.path">
+            <pathelement path="${jar.output}" />
+        </path>
+        <junit>
+            <classpath refid="class.path" />
+            <classpath refid="test.class.path" />
+            <formatter type="brief" usefile="false" />
+            <test name="com.github.bjarneh.simple.mime.ContentTest" />
+            <test name="com.github.bjarneh.simple.handlers.DispatchHandlerTest" />
+        </junit>
+    </target>
+
+ 
+
+<!-- javadoc target documents public methods/classes -->
+
+    <target name="javadoc"
+        description="make javadoc for project" depends="init">
+
+        <mkdir dir="${doc.dir}" />
+
+        <javadoc destdir="${doc.dir}" link="${javadoc.link}">
+
+            <fileset dir="${src.dir}/" >
+                <include name="**/*.java" />
+                <exclude name="${javadoc.exclude}"/> 
+            </fileset>
+
+            <classpath refid="class.path"/>
+
+            <arg value="-linksource" />
+
+        </javadoc>
+    </target>
+
+
+<!-- clean target removes: compiled code, docs, generated jars -->
+
+    <target name="clean"
+        description="remove obj/doc/dist/bin dirs + MANIFEST" depends="init">
+
+        <delete dir="${build.dir}" />
+        <delete dir="${dist.dir}" />
+        <delete dir="${doc.dir}" />
+        <delete dir="${bin.dir}" />
+        <delete file="${jar.manifest}" />
+
+    </target>
+
+
+    <!-- clean, then compile, then javadoc -->
+
+    <target name="all"
+        description="clean + build + jar + javadoc "
+        depends="clean,jar,javadoc">
+    </target>
+
+</project>
