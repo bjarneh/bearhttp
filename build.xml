@@ -16,7 +16,7 @@
 -->
 
 
-<project name="bjarnish" default="jar" basedir=".">
+<project name="bearhttp" default="jar" basedir=".">
 
 
 <!-- initialize the project with default values and class.path -->
