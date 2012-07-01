@@ -5,8 +5,8 @@
 
 ## What ##
 
-`bearhttp` is a small web server in Java, basically I wanted to make a
-clone of [BareHTTP][1]. It's written in [Java][3], and you need 
+`bearhttp` is a small web server; basically I wanted to make a
+clone of [BareHTTP][1]. It's pure [Java][3] (1.6), and you need 
 [Ant][2] to build/test etc.
 
 
