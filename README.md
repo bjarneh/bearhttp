@@ -26,7 +26,7 @@ On any architecture this should work:
 
 
 Should give you access to the documentation (which is a bit sparse)
-on port 9000, i.e. if you go to http://127.0.0.1/index.html
+on port 9000, i.e. if you go to http://127.0.0.1:9000/index.html
 you hopefully see the javadoc of the project.
 
 
