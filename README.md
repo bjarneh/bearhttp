@@ -25,9 +25,8 @@ On any architecture this should work:
     $ java -jar dist/bearhttp.jar doc/
 
 
-Should give you access to the documentation (which is a bit sparse)
-on port 9000, i.e. if you go to http://127.0.0.1:9000/index.html
-you hopefully see the javadoc of the project.
+If you go to http://127.0.0.1:9000/index.html
+you hopefully see the javadoc for the project.
 
 
 [1]: http://www.savarese.org/software/barehttp "BareHTTP home page"
