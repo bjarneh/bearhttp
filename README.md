@@ -6,8 +6,8 @@
 ## What ##
 
 `bearhttp` is a small web server in Java, basically I wanted to make a
-clone of [1][BareHTTP]. It's written in [3][Java], and you need 
-[2][Ant] to build/test etc.
+clone of [BareHTTP][1]. It's written in [Java][3], and you need 
+[Ant][2] to build/test etc.
 
 
 ## Try ##
