@@ -1,4 +1,3 @@
-syntax: glob
 *.class
 mk/MANIFEST.MF
 dist/*
