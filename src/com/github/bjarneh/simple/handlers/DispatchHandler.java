@@ -27,7 +27,7 @@ import com.github.bjarneh.simple.code.Status;
  * A base class HttpHandler, dispatches http requests based on type.
  *
  * I.e. a GET request calls handleGET, and a HEAD request calls
- * handleGET and so on. None of these function have an implementation,
+ * handleHEAD and so on. None of these function have an implementation,
  * other than returning a 'Not implemented' status, so it's made abstract.
  *
  * @version 1.0
