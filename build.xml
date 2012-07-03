@@ -122,8 +122,9 @@
             <classpath refid="class.path" />
             <classpath refid="test.class.path" />
             <formatter type="brief" usefile="false" />
-            <test name="com.github.bjarneh.simple.mime.ContentTest" />
-            <test name="com.github.bjarneh.simple.handlers.DispatchHandlerTest" />
+            <batchtest>
+                <fileset dir="${src.dir}" includes="**/*Test.java" />
+            </batchtest>
         </junit>
     </target>
 
