@@ -38,7 +38,7 @@ import java.util.ArrayList;
    }
 
    if(getopt.isSet("-root")){
-       root = getopt.get("-root");
+     root = getopt.get("-root");
    }
    
    for(String s: rest){
