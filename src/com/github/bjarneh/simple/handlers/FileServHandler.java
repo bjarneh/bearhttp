@@ -75,8 +75,8 @@ public class FileServHandler extends DispatchHandler {
     Content mime;
     String  root;
 
-    String htmlHeader = "<!DOCTYPE html>\n <html>\n  <body>\n";
-    String htmlFooter = "  </body>\n </html>\n";
+    String htmlHeader = "<!DOCTYPE html>\n<html>\n <body>\n";
+    String htmlFooter = " </body>\n</html>\n";
 
 
     public FileServHandler(String rootDir) throws IOException {
