@@ -7,15 +7,15 @@
 
 `bearhttp` is a small web server; basically I wanted to make a
 clone of [BareHTTP][1], but it's written in [Java][3] 1.6, i.e.
-the `com.sun.net.httpserver.HttpServer;` is used to dispatch
+the `HttpServer` found in 1.6 is used to dispatch
 incoming request. Only one type of handler is implemented currently,
-and it handles GET and HEAD requests, returning files with hopefully
-the correct mime type. Mime/content types are based on `/etc/mime.types`
-found on Debian/Ubuntu systems.
+and it handles GET and HEAD requests, returning files and hopefully
+the correct mime type. Mime/content types are based on 
+`/etc/mime.types` found on Debian/Ubuntu systems.
 
 ## Requirements ##
 
-    - [Ant][2] is used to build/test
+- [Ant][2] is used to build/test
 
 
 ## Try it ##
