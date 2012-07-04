@@ -19,8 +19,7 @@ import java.io.IOException;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
-
-import com.github.bjarneh.simple.code.Status;
+import java.net.HttpURLConnection;
 
 /**
  *
@@ -104,8 +103,8 @@ public abstract class DispatchHandler implements HttpHandler {
         notImplemented(exchange);
     }
 
-    public void notImplemented(HttpExchange exchange) throws IOException {
-        exchange.sendResponseHeaders(Status.NOT_IMPLEMENTED, -1);
-        exchange.close();
+    public void notImplemented(HttpExchange x) throws IOException {
+        x.sendResponseHeaders(HttpURLConnection.HTTP_NOT_IMPLEMENTED, -1);
+        x.close();
     }
 }

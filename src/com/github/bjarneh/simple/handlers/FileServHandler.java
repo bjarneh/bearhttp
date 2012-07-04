@@ -18,6 +18,7 @@ package com.github.bjarneh.simple.handlers;
 import java.util.Map;
 import java.util.HashMap;
 import java.net.URI;
+import java.net.HttpURLConnection;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.InputStream;
@@ -29,7 +30,6 @@ import com.sun.net.httpserver.HttpExchange;
 
 import com.github.bjarneh.utilz.Handy;
 import com.github.bjarneh.simple.mime.Content;
-import com.github.bjarneh.simple.code.Status;
 
 /**
  * Handles incoming HEAD and GET requests, it's a simple web server.
@@ -116,7 +116,7 @@ public class FileServHandler extends DispatchHandler {
 
         }else{
 
-            x.sendResponseHeaders(Status.NOT_FOUND, -1);
+            x.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, -1);
         }
 
         x.close();
@@ -156,7 +156,7 @@ public class FileServHandler extends DispatchHandler {
         responseHeaders.set("Content-Type", "text/html;charset=utf-8");
         responseHeaders.set("Content-Length", bytes.length + "");
 
-        x.sendResponseHeaders(Status.OK, bytes.length);
+        x.sendResponseHeaders(HttpURLConnection.HTTP_OK, bytes.length);
 
         responseBody = x.getResponseBody();
         responseBody.write(bytes);
@@ -179,7 +179,7 @@ public class FileServHandler extends DispatchHandler {
 
                 long size = file.length();
                 responseHeaders.set("Content-Length", size + "");
-                x.sendResponseHeaders(Status.OK, size);
+                x.sendResponseHeaders(HttpURLConnection.HTTP_OK, size);
 
                 responseBody = x.getResponseBody();
                 FileInputStream reqestBody = new FileInputStream(file);
@@ -187,11 +187,11 @@ public class FileServHandler extends DispatchHandler {
                 reqestBody.close();
 
             }else{
-                x.sendResponseHeaders(Status.OK, -1);
+                x.sendResponseHeaders(HttpURLConnection.HTTP_OK, -1);
             }
 
         }else{
-            x.sendResponseHeaders(Status.FORBIDDEN, -1);
+            x.sendResponseHeaders(HttpURLConnection.HTTP_FORBIDDEN, -1);
         }
 
     }
@@ -213,7 +213,8 @@ public class FileServHandler extends DispatchHandler {
         responseHeaders.set("Server", "Bearhttp 1.0");
         responseHeaders.set("Allow", "HEAD, GET");
 
-        exchange.sendResponseHeaders(Status.NOT_IMPLEMENTED, err.length());
+        exchange.sendResponseHeaders(
+                HttpURLConnection.HTTP_NOT_IMPLEMENTED, err.length());
 
         responseBody = exchange.getResponseBody();
         responseBody.write(err.getBytes());
