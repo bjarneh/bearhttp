@@ -19,7 +19,7 @@ import java.util.ArrayList;
    getopt.addBoolOption("-h -help --help help");
    getopt.addBoolOption"("-v -version --version");
 
-   // fancy option creates all variants of these flags, i.e.
+   // fancy option creates all variants of a flag, i.e.
    // this is equivalent to calling addFancyStrOption
    //
    // getopt.addStrOption("-p -p= -port -port= --port --port=")
