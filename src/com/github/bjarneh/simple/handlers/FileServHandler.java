@@ -116,13 +116,45 @@ public class FileServHandler extends DispatchHandler {
 
         }else{
 
-            x.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, -1);
+            handle404( x, file, body );
+
         }
 
         x.close();
 
     }
 
+    public void handle404(HttpExchange x, File file, boolean body)
+        throws IOException
+    {
+        if( body ){
+
+            OutputStream responseBody;
+            Headers responseHeaders;
+
+            StringBuilder sb = new StringBuilder();
+            sb.append(htmlHeader);
+            sb.append(" <pre>\n");
+            sb.append("  404 file not found: ");
+            sb.append(file.getName());
+            sb.append("\n </pre>\n");
+            sb.append(htmlFooter);
+
+            byte[] bytes = sb.toString().getBytes();
+
+            responseHeaders = x.getResponseHeaders();
+            responseHeaders.set("Content-Type", "text/html;charset=utf-8");
+            responseHeaders.set("Content-Length", bytes.length + "");
+
+            x.sendResponseHeaders(
+                    HttpURLConnection.HTTP_NOT_FOUND, bytes.length);
+
+            responseBody = x.getResponseBody();
+            responseBody.write(bytes);
+            responseBody.close();
+        }
+
+    }
 
     public void handleDir(HttpExchange x, File file) throws IOException {
 
