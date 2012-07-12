@@ -22,6 +22,7 @@ import java.util.concurrent.Executors;
 
 import com.github.bjarneh.parse.options.Getopt;
 import com.github.bjarneh.simple.handlers.FileServHandler;
+import com.github.bjarneh.simple.handlers.cache.CachedFileServHandler;
 
 /**
  *
@@ -65,7 +66,8 @@ public class Bearhttp {
 
     public void start() throws IOException {
         server = HttpServer.create(new InetSocketAddress(port), 10);
-        server.createContext("/", new FileServHandler(root));
+        server.createContext("/", new CachedFileServHandler(root));
+        //server.createContext("/", new FileServHandler(root));
         // server.setExecutor(null); gives default executors
         server.setExecutor(Executors.newCachedThreadPool());
         Runtime.getRuntime().addShutdownHook(shutdownHook);

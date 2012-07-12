@@ -72,8 +72,8 @@ import com.github.bjarneh.simple.mime.Content;
 
 public class FileServHandler extends DispatchHandler {
 
-    Content mime;
-    String  root;
+    public Content mime;
+    public String  root;
 
     String htmlHeader = "<!DOCTYPE html>\n<html>\n <body>\n";
     String htmlFooter = " </body>\n</html>\n";
