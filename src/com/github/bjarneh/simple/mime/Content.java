@@ -58,7 +58,7 @@ public class Content{
             tokens = line.split("\\s+");
             if( tokens.length > 1 ){
                 if( tokens[0].startsWith("text/") ){
-                    tokens[0] = tokens[0] +";charset" + defaultCharset;
+                    tokens[0] = tokens[0] +";charset=" + defaultCharset;
                 }
                 for(int i = 1; i < tokens.length; i++){
                     mapping.put(tokens[i], tokens[0]);
