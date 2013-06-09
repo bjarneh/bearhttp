@@ -39,7 +39,7 @@ public class Bearhttp {
 
     // defaults
     protected int port = 9000;
-    protected String root = "/";
+    protected String root = ".";
     protected HttpServer server;
 
 
@@ -66,8 +66,8 @@ public class Bearhttp {
 
     public void start() throws IOException {
         server = HttpServer.create(new InetSocketAddress(port), 10);
-        server.createContext("/", new CachedFileServHandler(root));
-        //server.createContext("/", new FileServHandler(root));
+        //server.createContext("/", new CachedFileServHandler(root));
+        server.createContext("/", new FileServHandler(root));
         // server.setExecutor(null); gives default executors
         server.setExecutor(Executors.newCachedThreadPool());
         Runtime.getRuntime().addShutdownHook(shutdownHook);
