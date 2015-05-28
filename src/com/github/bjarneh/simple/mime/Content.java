@@ -45,7 +45,7 @@ public class Content{
 
     private void load() throws IOException {
 
-        String path = Handy.fromSlash("resources/txt/mime.types");
+        String path = "resources/txt/mime.types";
 
         URL url = getClass().getClassLoader().getResource(path);
         Scanner scanner = new Scanner(url.openStream());
