@@ -81,7 +81,7 @@ public class FileServHandler extends DispatchHandler {
 
     public FileServHandler(String rootDir) throws IOException {
         mime = new Content();
-        root = new File(rootDir).getCanonicalPath();
+        root = new File(rootDir).getPath();
     }
 
     public void handleGET(HttpExchange exchange) throws IOException {
@@ -156,6 +156,7 @@ public class FileServHandler extends DispatchHandler {
 
     }
 
+
     public void handleDir(HttpExchange x, File file) throws IOException {
 
         OutputStream responseBody;
@@ -169,7 +170,6 @@ public class FileServHandler extends DispatchHandler {
 
         String tmp;
         String fmt ="  <li><a href=\"%s\">%s</a></li>\n";
-
         
         for(String f: files){
             tmp = f;
